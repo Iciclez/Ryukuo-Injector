@@ -82,7 +82,7 @@ void mainwindow::set_message_handler()
 
 		if (injector.get())
 		{
-			if (this->m_checkbox_cloakdll->is_checked())
+			if (this->m_checkbox_mapdll->is_checked())
 			{
 				injector->map_dll(this->getdlllist());
 			}
@@ -275,9 +275,9 @@ void mainwindow::set_message_handler()
 		return 0;
 	}));
 
-	this->w->add_message_handler(std::make_pair(checkbox_cloakdll, [this](hwnd, wparam, lparam) -> lresult
+	this->w->add_message_handler(std::make_pair(checkbox_mapdll, [this](hwnd, wparam, lparam) -> lresult
 	{
-		m_combobox_injectionroutine->set_enabled(!m_checkbox_cloakdll->is_checked());
+		m_combobox_injectionroutine->set_enabled(!m_checkbox_mapdll->is_checked());
 
 		return 0;
 	}));
@@ -309,7 +309,7 @@ void mainwindow::set_message_handler()
 									this->m_checkbox_freeze->is_checked(),
 									this->injection_error_handler);
 
-								if (this->m_checkbox_cloakdll->is_checked())
+								if (this->m_checkbox_mapdll->is_checked())
 								{
 									injector.map_dll(this->getdlllist());
 								}
@@ -357,7 +357,7 @@ void mainwindow::set_message_handler()
 									this->m_checkbox_freeze->is_checked(),
 									this->injection_error_handler);
 
-								if (this->m_checkbox_cloakdll->is_checked())
+								if (this->m_checkbox_mapdll->is_checked())
 								{
 									injector.map_dll(this->getdlllist());
 								}
@@ -496,7 +496,7 @@ mainwindow::mainwindow(hinstance inst)
 		m_groupbox_additional->set_font(bold_font);
 
 		m_checkbox_freeze = new checkbox(checkbox_freeze, r.right / 3 + 10, 170, 180, 20, const_cast<char*>("Freeze Process During Injection"), wnd);
-		m_checkbox_cloakdll = new checkbox(checkbox_cloakdll, r.right / 3 + 10, 190, 180, 20, const_cast<char*>("Cloak Dll (Map Dll Manually)"), wnd);
+		m_checkbox_mapdll = new checkbox(checkbox_mapdll, r.right / 3 + 10, 190, 180, 20, const_cast<char*>("Map Dll"), wnd);
 
 		m_button_inject = new button(button_inject, r.right - 155, r.bottom - 25, 150, 20, const_cast<char*>("Inject"), wnd);
 
@@ -535,7 +535,7 @@ mainwindow::mainwindow(hinstance inst)
 		mainwindowprofile.insert(this->m_combobox_autoinjection, "AutoInjectInformation", profile::pcombobox_index);
 		mainwindowprofile.insert(this->m_textbox_autoinjection, "AutoInject", profile::ptextbox);
 		mainwindowprofile.insert(this->m_checkbox_freeze, "Freeze", profile::pcheckbox);
-		mainwindowprofile.insert(this->m_checkbox_cloakdll, "CloakDll", profile::pcheckbox);
+		mainwindowprofile.insert(this->m_checkbox_mapdll, "MapDll", profile::pcheckbox);
 		mainwindowprofile.insert(this->m_combobox_injectionroutine, "Routine", profile::pcombobox_index);
 		mainwindowprofile.insert(this->m_combobox_injectionthread, "Thread", profile::pcombobox_index);
 		mainwindowprofile.insert(this->m_checklistview_dlllist, "Dll", profile::pchecklistview);
@@ -575,7 +575,7 @@ mainwindow::mainwindow(hinstance inst)
 		m_groupbox_additional->set_window_position(r.right / 3 + 5, 155, r.right - (r.right / 3 + 10), r.bottom - 155 - 30);
 
 		m_checkbox_freeze->set_window_position(r.right / 3 + 10, 170, 180, 20);
-		m_checkbox_cloakdll->set_window_position(r.right / 3 + 10, 190, 180, 20);
+		m_checkbox_mapdll->set_window_position(r.right / 3 + 10, 190, 180, 20);
 
 		m_button_inject->set_window_position(r.right - 155, r.bottom - 25, 150, 20);
 
@@ -765,7 +765,7 @@ mainwindow::~mainwindow()
 
 		groupbox *m_groupbox_additional;
 		checkbox *m_checkbox_freeze;
-		checkbox *m_checkbox_cloakdll;
+		checkbox *m_checkbox_mapdll;
 
 		button *m_button_inject;
 
@@ -801,7 +801,7 @@ mainwindow::~mainwindow()
 	if (m_checkbox_autoinjection) delete m_checkbox_autoinjection;
 	if (m_groupbox_additional) delete m_groupbox_additional;
 	if (m_checkbox_freeze) delete m_checkbox_freeze;
-	if (m_checkbox_cloakdll) delete m_checkbox_cloakdll;
+	if (m_checkbox_mapdll) delete m_checkbox_mapdll;
 	if (m_button_inject) delete m_button_inject;
 	if (m_groupbox_inner_additional) delete m_groupbox_inner_additional;
 	if (m_combobox_injectionroutine) delete m_combobox_injectionroutine;
@@ -821,7 +821,7 @@ window * mainwindow::get_window() const
 void mainwindow::update()
 {
 	this->w->send_message(WM_COMMAND, MAKEWPARAM(combobox_informationclassification, CBN_SELCHANGE));
-	this->w->send_message(WM_COMMAND, checkbox_cloakdll, 0);
+	this->w->send_message(WM_COMMAND, checkbox_mapdll, 0);
 }
 
 void mainwindow::save()

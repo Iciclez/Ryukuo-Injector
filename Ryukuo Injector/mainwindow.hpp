@@ -58,7 +58,7 @@ public:
 
 		groupbox_additional,
 		checkbox_freeze,
-		checkbox_cloakdll,
+		checkbox_mapdll,
 
 		button_inject,
 		
@@ -93,7 +93,7 @@ private:
 
 	groupbox *m_groupbox_additional;
 	checkbox *m_checkbox_freeze;
-	checkbox *m_checkbox_cloakdll;
+	checkbox *m_checkbox_mapdll;
 
 	button *m_button_inject;
 
